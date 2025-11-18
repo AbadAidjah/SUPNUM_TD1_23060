@@ -54,6 +54,8 @@ public class ServerService {
    public Status getServerStatus(Long id){
     ServerModel server = serverRepository.findById(id).orElseThrow(() -> new RuntimeException("server not found"));
     return server.getServerStatus();
+
+    // 
    }
 
     public void DeleteServer(Long id){

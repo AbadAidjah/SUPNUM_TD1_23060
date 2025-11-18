@@ -41,8 +41,8 @@ Docker Compose est un outil permettant de définir et d'exécuter des applicatio
 
 1. Cloner le dépôt :
 ```bash
-git clone https://github.com/votre-username/SUPNUM_TD1_MATRICULE.git
-cd SUPNUM_TD1_MATRICULE
+git clone https://github.com/AbadAidjah/SUPNUM_TD1_23060.git
+cd SUPNUM_TD1_23060 
 git checkout REST
 ```
 
@@ -424,7 +424,7 @@ psql -h localhost -p 5432 -U postgres -d td1
 
 ## Auteur
 
-**Matricule** : VOTRE_MATRICULE  
+**Matricule** : Abad Aidjah  
 **Branche** : REST  
 **Établissement** : SUPNUM
 
