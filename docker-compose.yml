@@ -20,7 +20,7 @@ services:
       container_name: td1-backend-rest
       environment:
       
-        SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5433/td1
+        SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/td1
         SPRING_DATASOURCE_USERNAME: postgres
         SPRING_DATASOURCE_PASSWORD: A@077068
         SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver           

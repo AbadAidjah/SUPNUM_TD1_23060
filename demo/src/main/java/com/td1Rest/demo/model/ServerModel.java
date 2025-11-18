@@ -21,7 +21,7 @@ public class ServerModel {
     @Enumerated(EnumType.STRING)
     private Status serverStatus;
 
-
+    public ServerModel(){}
     public ServerModel(Long id, String name, String ipAddress, Status serverStatus ){
         this.id = id;
         this.name = name;
