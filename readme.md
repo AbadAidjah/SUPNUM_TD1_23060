@@ -75,8 +75,8 @@ docker-compose down
 
 1. Cloner le dépôt :
 ```bash
-git clone https://github.com/votre-username/SUPNUM_TD1_MATRICULE.git
-cd SUPNUM_TD1_MATRICULE
+git clone https://github.com/AbadAidjah/SUPNUM_TD1_23060.git
+cd SUPNUM_TD1_23060
 git checkout REST
 ```
 
