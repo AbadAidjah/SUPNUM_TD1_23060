@@ -3,7 +3,7 @@ services:
 
   postgres:
     image: postgres:15
-    container_name: td1-postgres
+    container_name: td1-postgres-soap
     environment:
       POSTGRES_DB: td1
       POSTGRES_USER: postgres
@@ -17,10 +17,10 @@ services:
 
   backend:
       build: ./demo
-      container_name: td1-backend-rest
+      container_name: td1-backend-soap
       environment:
       
-        SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/td1
+        SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/td1
         SPRING_DATASOURCE_USERNAME: postgres
         SPRING_DATASOURCE_PASSWORD: A@077068
         SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver           
