@@ -1,8 +1,13 @@
 package com.td1Rest.demo.endpoint;
 import com.td1rest.demo.soap.servers.CreateServerRequest;
 import com.td1rest.demo.soap.servers.CreateServerResponse;
+import com.td1rest.demo.soap.servers.DeleteServerRequest;
+import com.td1rest.demo.soap.servers.DeleteServerResponse;
 import com.td1rest.demo.soap.servers.ListServersRequest;
 import com.td1rest.demo.soap.servers.ListServersResponse;
+import com.td1rest.demo.soap.servers.RenameServerRequest;
+import com.td1rest.demo.soap.servers.RenameServerResponse;
+
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -12,7 +17,9 @@ import com.td1Rest.demo.model.ServerModel;
 import com.td1Rest.demo.service.ServerService;
 // import com.td1Rest.demo.model.ServerModel;
 // import com.td1Rest.demo.model.ServerModel.Status;
-import com.td1rest.demo.soap.servers.Server; 
+import com.td1rest.demo.soap.servers.Server;
+import com.td1rest.demo.soap.servers.StartServerRequest;
+import com.td1rest.demo.soap.servers.StartServerResponse;
 import com.td1rest.demo.soap.servers.Status; 
 
 import java.util.List;
@@ -47,44 +54,28 @@ public class ServerEndpoint {
     }
 
 
-//     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createServerRequest")
-// @ResponsePayload
-// public CreateServerResponse createServer(@RequestPayload CreateServerRequest request) {
-//     CreateServerResponse response = new CreateServerResponse();
-//     // Map request fields to your ServerModel
-//     ServerModel model = new ServerModel();
-//     model.setName(request.getName());
-//     model.setIpAddress(request.getIpAddress());
-//     model.setServerStatus(ServerModel.Status.valueOf(request.getServerStatus().name()));
-//     // Save using your service
-//     ServerModel saved = serverService.CreatServer(model);
-//     // Set response fields
-//     response.setServerId(saved.getId());
-//     response.setSuccess(true);
-//     return response;
-// }
+
 @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createServerRequest")
 @ResponsePayload
 public CreateServerResponse createServer(@RequestPayload CreateServerRequest request) {
     CreateServerResponse response = new CreateServerResponse();
 
-    // Map request fields to your ServerModel
     ServerModel model = new ServerModel();
     model.setName(request.getServer().getName());
     model.setIpAddress(request.getServer().getIpAddress());
     model.setServerStatus(ServerModel.Status.valueOf(request.getServer().getServerStatus().name()));
 
-    // Save using your service
+    
     ServerModel saved = serverService.CreatServer(model);
 
-    // Map to generated SOAP Server object
+   
     Server soapServer = new Server();
     soapServer.setId(saved.getId());
     soapServer.setName(saved.getName());
     soapServer.setIpAddress(saved.getIpAddress());
     soapServer.setServerStatus(Status.valueOf(saved.getServerStatus().name()));
 
-    // Set all fields in the response
+    
     response.setServer(soapServer);
     response.setServerId(saved.getId());
     response.setSuccess(true);
@@ -94,6 +85,28 @@ public CreateServerResponse createServer(@RequestPayload CreateServerRequest req
 
     return response;
 }
+
+@PayloadRoot(namespace = NAMESPACE_URI, localPart = "RenameServerRequest")
+@ResponsePayload
+public RenameServerRequest RenameServer(@ResponsePayload RenameServerRequest requeest){
+    RenameServerResponse response = new RenameServerResponse();
+    serverService.RenameServer(request.getId(), request.getName());
+    
+}
+
+@PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteServerRequest")
+@ResponsePayload
+public void DeleteServer(@RequestPayload DeleteServerRequest request){
+    DeleteServerResponse response = new DeleteServerResponse();
+    serverService.DeleteServer(request.getId());
+    response.setSuccess(true);
+    // return response;
+    
+
+}
+
+
+
 
     
 }
