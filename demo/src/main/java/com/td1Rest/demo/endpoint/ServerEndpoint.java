@@ -98,7 +98,7 @@ public CreateServerResponse createServer(@RequestPayload CreateServerRequest req
     // soapServer.setServerStatus(Status.valueOf(saved.getServerStatus().name()));
     if (saved.getServerStatus() != null) {
     soapServer.setServerStatus(Status.valueOf(saved.getServerStatus().name()));
-}
+// }
     // Set all fields in the response
     response.setServer(soapServer);
     response.setServerId(saved.getId());
