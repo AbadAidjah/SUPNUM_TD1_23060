@@ -191,6 +191,68 @@ http://localhost:8080/ws
 </soapenv:Envelope>
 ```
 
+### 3. Démarrer un Serveur
+
+**Requête :**
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:ser="http://soap.demo.td1Rest.com/servers">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:startServerRequest>
+         <ser:id>1</ser:id>
+      </ser:startServerRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### 4. Arrêter un Serveur
+
+**Requête :**
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:ser="http://soap.demo.td1Rest.com/servers">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:stopServerRequest>
+         <ser:id>1</ser:id>
+      </ser:stopServerRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### 5. Renommer un Serveur
+
+**Requête :**
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:ser="http://soap.demo.td1Rest.com/servers">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:renameServerRequest>
+         <ser:id>1</ser:id>
+         <ser:name>NouveauNomServeur</ser:name>
+      </ser:renameServerRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### 6. Supprimer un Serveur
+
+**Requête :**
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:ser="http://soap.demo.td1Rest.com/servers">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:deleteServerRequest>
+         <ser:id>1</ser:id>
+      </ser:deleteServerRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+
 ## Structure du Projet
 
 ```
@@ -250,7 +312,7 @@ mvn clean generate-sources
 
 ## Auteur
 
-**Matricule** : Abad Aidjah  
+**Nom** : Abad Aidjah  
 **Branche** : SOAP  
 **Établissement** : SUPNUM
 
