@@ -20,7 +20,9 @@ import com.td1Rest.demo.service.ServerService;
 import com.td1rest.demo.soap.servers.Server;
 import com.td1rest.demo.soap.servers.StartServerRequest;
 import com.td1rest.demo.soap.servers.StartServerResponse;
-import com.td1rest.demo.soap.servers.Status; 
+import com.td1rest.demo.soap.servers.Status;
+import com.td1rest.demo.soap.servers.StopServerRequest;
+import com.td1rest.demo.soap.servers.StopServerResponse;
 
 import java.util.List;
 
@@ -54,59 +56,112 @@ public class ServerEndpoint {
     }
 
 
-
+//     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createServerRequest")
+// @ResponsePayload
+// public CreateServerResponse createServer(@RequestPayload CreateServerRequest request) {
+//     CreateServerResponse response = new CreateServerResponse();
+//     // Map request fields to your ServerModel
+//     ServerModel model = new ServerModel();
+//     model.setName(request.getName());
+//     model.setIpAddress(request.getIpAddress());
+//     model.setServerStatus(ServerModel.Status.valueOf(request.getServerStatus().name()));
+//     // Save using your service
+//     ServerModel saved = serverService.CreatServer(model);
+//     // Set response fields
+//     response.setServerId(saved.getId());
+//     response.setSuccess(true);
+//     return response;
+// }
 @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createServerRequest")
 @ResponsePayload
 public CreateServerResponse createServer(@RequestPayload CreateServerRequest request) {
     CreateServerResponse response = new CreateServerResponse();
 
+    // Map request fields to your ServerModel
     ServerModel model = new ServerModel();
     model.setName(request.getServer().getName());
     model.setIpAddress(request.getServer().getIpAddress());
+    // model.setServerStatus(ServerModel.Status.valueOf(request.getServer().getServerStatus().name()));
+    if (request.getServer().getServerStatus() != null) {
     model.setServerStatus(ServerModel.Status.valueOf(request.getServer().getServerStatus().name()));
+}
 
-    
+    // Save using your service
     ServerModel saved = serverService.CreatServer(model);
 
-   
+    // Map to generated SOAP Server object
     Server soapServer = new Server();
     soapServer.setId(saved.getId());
     soapServer.setName(saved.getName());
     soapServer.setIpAddress(saved.getIpAddress());
-    soapServer.setServerStatus(Status.valueOf(saved.getServerStatus().name()));
-
     
+    // soapServer.setServerStatus(Status.valueOf(saved.getServerStatus().name()));
+    if (saved.getServerStatus() != null) {
+    soapServer.setServerStatus(Status.valueOf(saved.getServerStatus().name()));
+}
+    // Set all fields in the response
     response.setServer(soapServer);
     response.setServerId(saved.getId());
     response.setSuccess(true);
     response.setName(saved.getName());
     response.setIpAddress(saved.getIpAddress());
+    if (saved.getServerStatus() != null) {
     response.setServerStatus(Status.valueOf(saved.getServerStatus().name()));
+    }
 
     return response;
 }
 
-@PayloadRoot(namespace = NAMESPACE_URI, localPart = "RenameServerRequest")
-@ResponsePayload
-public RenameServerRequest RenameServer(@ResponsePayload RenameServerRequest requeest){
-    RenameServerResponse response = new RenameServerResponse();
-    serverService.RenameServer(request.getId(), request.getName());
-    
-}
-
 @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteServerRequest")
 @ResponsePayload
-public void DeleteServer(@RequestPayload DeleteServerRequest request){
+public DeleteServerResponse DeleteServer(@RequestPayload DeleteServerRequest request){
     DeleteServerResponse response = new DeleteServerResponse();
     serverService.DeleteServer(request.getId());
-    response.setSuccess(true);
-    // return response;
-    
-
+     response.setSuccess(true);
+     return response;
+}
+@PayloadRoot(namespace = NAMESPACE_URI, localPart = "renameServerRequest")
+@ResponsePayload
+public RenameServerResponse renameServer(@RequestPayload RenameServerRequest request){
+    RenameServerResponse response = new RenameServerResponse();
+    ServerModel server = serverService.RenameServer(request.getId(), request.getName());
+    Server soapServer = new Server();
+    soapServer.setId(server.getId());
+    soapServer.setName(server.getName());
+    soapServer.setIpAddress(server.getIpAddress());
+    soapServer.setServerStatus(Status.valueOf(server.getServerStatus().name()));
+    response.setServer(soapServer);
+    return response;    
 }
 
-
-
+@PayloadRoot(namespace = NAMESPACE_URI, localPart = "startServerRequest")
+@ResponsePayload
+public StartServerResponse startServer(@RequestPayload StartServerRequest request){
+        StartServerResponse response = new StartServerResponse();
+        ServerModel server = serverService.StartServer(request.getId());
+        Server soapServer = new Server();
+        soapServer.setId(server.getId());
+        soapServer.setName(server.getName());
+        soapServer.setName(server.getName());
+        soapServer.setIpAddress(server.getIpAddress());
+        soapServer.setServerStatus(Status.valueOf(server.getServerStatus().name()));
+        response.setServer(soapServer);
+        return response;
+}
+@PayloadRoot(namespace = NAMESPACE_URI, localPart = "stopServerRequest")
+@ResponsePayload
+public StopServerResponse stopServer(@RequestPayload StopServerRequest request){
+    StopServerResponse response = new StopServerResponse();
+    ServerModel server = serverService.StopServer(request.getId());
+    Server soapServer = new Server();
+    soapServer.setId(server.getId());
+        soapServer.setName(server.getName());
+        soapServer.setName(server.getName());
+        soapServer.setIpAddress(server.getIpAddress());
+        soapServer.setServerStatus(Status.valueOf(server.getServerStatus().name()));
+        response.setServer(soapServer);
+        return response;
+}
 
     
 }
