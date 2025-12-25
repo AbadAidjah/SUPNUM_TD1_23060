@@ -53,7 +53,7 @@ public class WebServiceConfig {
         marshaller.setContextPath("com.td1rest.demo.soap.servers");
         return marshaller;
     }
-
+// 
     @Bean
     public WebServiceTemplate webServiceTemplate(Jaxb2Marshaller marshaller) {
         WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
