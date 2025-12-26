@@ -3,6 +3,8 @@ import com.td1rest.demo.soap.servers.CreateServerRequest;
 import com.td1rest.demo.soap.servers.CreateServerResponse;
 import com.td1rest.demo.soap.servers.DeleteServerRequest;
 import com.td1rest.demo.soap.servers.DeleteServerResponse;
+import com.td1rest.demo.soap.servers.GetServerStatusRequest;
+import com.td1rest.demo.soap.servers.GetServerStatusResponse;
 import com.td1rest.demo.soap.servers.ListServersRequest;
 import com.td1rest.demo.soap.servers.ListServersResponse;
 import com.td1rest.demo.soap.servers.RenameServerRequest;
@@ -168,6 +170,16 @@ public StopServerResponse stopServer(@RequestPayload StopServerRequest request){
         response.setServer(soapServer);
         return response;
 
+
+}
+
+@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getServerStatusRequest")
+@ResponsePayload
+public GetServerStatusResponse getServerStatus(@RequestPayload GetServerStatusRequest request){
+    GetServerStatusResponse response = new GetServerStatusResponse();
+    com.td1Rest.demo.model.ServerModel.Status serverStatus = serverService.getServerStatus(request.getId());
+    response.setStatus(serverStatus != null ? Status.valueOf(serverStatus.name()):null);
+    return response;
 
 }
 }

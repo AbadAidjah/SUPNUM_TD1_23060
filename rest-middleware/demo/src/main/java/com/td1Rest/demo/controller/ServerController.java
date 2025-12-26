@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.td1Rest.demo.service.ServerConsumerService;
@@ -23,4 +25,22 @@ public class ServerController {
         return ResponseEntity.ok(servers);
     }
 
+    @GetMapping("/api/serverstatus/{id}")
+    public ResponseEntity<?> getServerStatus(@PathVariable Long id){
+       
+        return ResponseEntity.ok(serverConsumerServiceImpl.getServerStatus(id));
+
+    }
+    @PostMapping("/api/startserver/{id}")
+    public ResponseEntity<?> startServer(@PathVariable Long id){
+        return ResponseEntity.ok(serverConsumerServiceImpl.startServer(id));
+    }
+    
+    @PostMapping("/api/stopserver/{id}")
+    public ResponseEntity<?> stopServer(@PathVariable Long id){
+        return ResponseEntity.ok(serverConsumerServiceImpl.StopServer(id));
+    }
+      
+
+    
 }
