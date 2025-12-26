@@ -1,5 +1,8 @@
 package com.td1Rest.demo.service;
 
+import com.td1Rest.demo.model.ServerModel;
+import com.td1rest.demo.soap.servers.CreateServerRequest;
+import com.td1rest.demo.soap.servers.CreateServerResponse;
 import com.td1rest.demo.soap.servers.GetServerStatusRequest;
 import com.td1rest.demo.soap.servers.GetServerStatusResponse;
 import com.td1rest.demo.soap.servers.ListServersResponse;
@@ -7,6 +10,7 @@ import com.td1rest.demo.soap.servers.ObjectFactory;
 import com.td1rest.demo.soap.servers.Server;
 import com.td1rest.demo.soap.servers.StartServerRequest;
 import com.td1rest.demo.soap.servers.StartServerResponse;
+import com.td1rest.demo.soap.servers.Status;
 import com.td1rest.demo.soap.servers.StopServerRequest;
 import com.td1rest.demo.soap.servers.StopServerResponse;
 
@@ -109,6 +113,32 @@ public class ServerConsumerServiceImpl {
     }catch(Exception e){
       throw new RuntimeException("Erreur lors de l'appel au service SOAP: " + e.getMessage(),e);
 
+    }
+  }
+
+  public CreateServerResponse CreateServer(ServerModel server){
+    try{
+      CreateServerRequest request = objectFactory.createCreateServerRequest();
+      Server soapServer = new Server();
+
+      soapServer.setId(server.getId());
+      soapServer.setName(server.getName());
+      soapServer.setIpAddress(server.getIpAddress());
+      soapServer.setServerStatus(server.getServerStatus() != null ? Status.valueOf(server.getServerStatus().name()):null);
+      // serverStatus != null ? Status.valueOf(serverStatus.name()):null);
+      request.setServer(soapServer);
+      WebServiceMessageCallback messageCallback = message->{
+        if(message instanceof SoapMessage soapMessage){
+          soapMessage.setSoapAction("");
+        }
+      };
+
+      CreateServerResponse response = (CreateServerResponse) webServiceTemplate
+        .marshalSendAndReceive(soapServerUrl,request, messageCallback);
+        return response;
+
+    }catch(Exception e){
+      throw new RuntimeException("Erreur lors de l'appel au service SOAP: " + e.getMessage(),e);
     }
   }
 
