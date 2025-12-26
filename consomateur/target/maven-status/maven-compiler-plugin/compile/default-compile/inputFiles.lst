@@ -1,0 +1,7 @@
+/home/Abad/Desktop/DeskOld/ArchiSOA/TD1/soap_to_rest_td2/consomateur/src/main/java/mr/supnum/feignclient/FeignClientApplication.java
+/home/Abad/Desktop/DeskOld/ArchiSOA/TD1/soap_to_rest_td2/consomateur/src/main/java/mr/supnum/feignclient/client/ConsumateurClient.java
+/home/Abad/Desktop/DeskOld/ArchiSOA/TD1/soap_to_rest_td2/consomateur/src/main/java/mr/supnum/feignclient/controller/ServerFeignController.java
+/home/Abad/Desktop/DeskOld/ArchiSOA/TD1/soap_to_rest_td2/consomateur/src/main/java/mr/supnum/feignclient/dto/GetServerStatusResponse.java
+/home/Abad/Desktop/DeskOld/ArchiSOA/TD1/soap_to_rest_td2/consomateur/src/main/java/mr/supnum/feignclient/dto/Server.java
+/home/Abad/Desktop/DeskOld/ArchiSOA/TD1/soap_to_rest_td2/consomateur/src/main/java/mr/supnum/feignclient/dto/StartServerResponse.java
+/home/Abad/Desktop/DeskOld/ArchiSOA/TD1/soap_to_rest_td2/consomateur/src/main/java/mr/supnum/feignclient/dto/StopServerResponse.java

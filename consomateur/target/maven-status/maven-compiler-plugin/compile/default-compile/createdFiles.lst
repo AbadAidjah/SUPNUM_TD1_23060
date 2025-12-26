@@ -1,0 +1,9 @@
+mr/supnum/feignclient/dto/Server.class
+mr/supnum/feignclient/FeignClientApplication.class
+mr/supnum/feignclient/controller/ServerFeignController.class
+mr/supnum/feignclient/dto/StartServerResponse.class
+mr/supnum/feignclient/dto/Server$Status.class
+mr/supnum/feignclient/dto/StopServerResponse.class
+mr/supnum/feignclient/client/ConsumateurClient.class
+mr/supnum/feignclient/dto/GetServerStatusResponse$Status.class
+mr/supnum/feignclient/dto/GetServerStatusResponse.class
