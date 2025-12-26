@@ -1,5 +1,13 @@
 package com.td1Rest.demo.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.ws.client.core.WebServiceMessageCallback;
+import org.springframework.ws.client.core.WebServiceTemplate;
+import org.springframework.ws.soap.SoapMessage;
+
 import com.td1Rest.demo.model.ServerModel;
 import com.td1rest.demo.soap.servers.CreateServerRequest;
 import com.td1rest.demo.soap.servers.CreateServerResponse;
@@ -7,20 +15,14 @@ import com.td1rest.demo.soap.servers.GetServerStatusRequest;
 import com.td1rest.demo.soap.servers.GetServerStatusResponse;
 import com.td1rest.demo.soap.servers.ListServersResponse;
 import com.td1rest.demo.soap.servers.ObjectFactory;
+import com.td1rest.demo.soap.servers.RenameServerRequest;
+import com.td1rest.demo.soap.servers.RenameServerResponse;
 import com.td1rest.demo.soap.servers.Server;
 import com.td1rest.demo.soap.servers.StartServerRequest;
 import com.td1rest.demo.soap.servers.StartServerResponse;
 import com.td1rest.demo.soap.servers.Status;
 import com.td1rest.demo.soap.servers.StopServerRequest;
 import com.td1rest.demo.soap.servers.StopServerResponse;
-
-import java.util.List;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.ws.client.core.WebServiceMessageCallback;
-import org.springframework.ws.client.core.WebServiceTemplate;
-import org.springframework.ws.soap.SoapMessage;
-import com.td1rest.demo.soap.servers.ListServersResponse;
 
 @Service
 public class ServerConsumerServiceImpl {
@@ -137,6 +139,25 @@ public class ServerConsumerServiceImpl {
         .marshalSendAndReceive(soapServerUrl,request, messageCallback);
         return response;
 
+    }catch(Exception e){
+      throw new RuntimeException("Erreur lors de l'appel au service SOAP: " + e.getMessage(),e);
+    }
+  }
+  public RenameServerResponse RenameServer(ServerModel server){
+    try {
+      RenameServerRequest request = objectFactory.createRenameServerRequest();
+     request.setId(server.getId());
+     request.setName(server.getName());
+
+    WebServiceMessageCallback messageCallback = message ->{
+      if(message instanceof SoapMessage soapMessage){
+        soapMessage.setSoapAction("");
+      }
+    };
+
+    RenameServerResponse response = (RenameServerResponse) webServiceTemplate
+      .marshalSendAndReceive(soapServerUrl, request, messageCallback);
+      return response;
     }catch(Exception e){
       throw new RuntimeException("Erreur lors de l'appel au service SOAP: " + e.getMessage(),e);
     }
