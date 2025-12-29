@@ -22,6 +22,7 @@ Votre entreprise a développé un système de supervision et de monitoring de se
   - `stopServer` : Arrêter un serveur.
   - `createServer` : Créer un serveur.
   - `renameServer` : Renommer un serveur.
+  - `deleteServer` : Supprimer un serveur.
 - **Port** : 8080
 - **WSDL** : Accessible via `http://localhost:8080/ws/servers.wsdl`
 
@@ -34,6 +35,7 @@ Votre entreprise a développé un système de supervision et de monitoring de se
   - `POST /api/stopserver/{id}` : Arrêter un serveur (JSON).
   - `POST /api/create/server/` : Créer un serveur (JSON, body: ServerModel).
   - `PUT /api/rename/server/{id}` : Renommer un serveur (JSON, body: ServerModel).
+  - `DELETE /api/delete/server/{id}` : Supprimer un serveur.
 - **Port** : 8081
 - **Communication** : Consomme SOAP via WebServiceTemplate.
 
@@ -46,8 +48,43 @@ Votre entreprise a développé un système de supervision et de monitoring de se
   - `POST /api/client/servers/{id}/stop` : Arrêter un serveur.
   - `POST /api/client/servers/create` : Créer un serveur.
   - `PUT /api/client/servers/{id}/rename` : Renommer un serveur.
+  - `DELETE /api/client/servers/{id}/delete` : Supprimer un serveur.
 - **Port** : 8082
 - **Communication** : Consomme REST via Feign.
+
+## Démarrage des Services
+
+1. **Prérequis** : Docker, Docker Compose, Maven, JDK 17+.
+2. **Lancer tout** : `docker compose up -d --build`
+3. **Vérifier** : `docker ps` (devrait montrer postgres, backend, middleware, consumer).
+4. **Logs** : `docker logs <container-name>` pour debug.
+
+Si tu préfères lancer localement :
+- Backend SOAP : `cd soap/demo && mvn spring-boot:run`
+- Middleware : `cd rest-middleware/demo && mvn spring-boot:run`
+- Consumer : `cd consomateur && mvn spring-boot:run`
+
+## Test des Endpoints
+
+Utilise Thunder Client, Postman ou curl. Exemples :
+
+### SOAP Backend (port 8080)
+- Liste serveurs :
+  ```bash
+  curl -s -H "Content-Type: text/xml;charset=UTF-8" \
+    --data '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://soap.demo.td1Rest.com/servers"><soapenv:Header/><soapenv:Body><ser:listServersRequest/></soapenv:Body></soapenv:Envelope>' \
+    http://localhost:8080/ws
+  ```
+
+### REST Middleware (port 8081)
+- Liste serveurs : `GET http://localhost:8081/api/servers`
+- Créer serveur : `POST http://localhost:8081/api/create/server/` avec body JSON `{"name":"test","ipAddress":"10.0.0.1","serverStatus":"INACTIVE"}`
+
+### Consumer (port 8082)
+- Liste serveurs : `GET http://localhost:8082/api/client/servers`
+- Créer serveur : `POST http://localhost:8082/api/client/servers/create` avec body JSON `{"name":"test","ipAddress":"10.0.0.1","serverStatus":"INACTIVE"}`
+
+Pour plus de détails, check les logs ou le code source.
 
 ## Contrats de Communication
 

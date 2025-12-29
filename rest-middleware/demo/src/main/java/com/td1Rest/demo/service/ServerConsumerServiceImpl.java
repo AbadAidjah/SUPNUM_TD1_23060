@@ -11,6 +11,8 @@ import org.springframework.ws.soap.SoapMessage;
 import com.td1Rest.demo.model.ServerModel;
 import com.td1rest.demo.soap.servers.CreateServerRequest;
 import com.td1rest.demo.soap.servers.CreateServerResponse;
+import com.td1rest.demo.soap.servers.DeleteServerRequest;
+import com.td1rest.demo.soap.servers.DeleteServerResponse;
 import com.td1rest.demo.soap.servers.GetServerStatusRequest;
 import com.td1rest.demo.soap.servers.GetServerStatusResponse;
 import com.td1rest.demo.soap.servers.ListServersResponse;
@@ -162,6 +164,25 @@ public class ServerConsumerServiceImpl {
       throw new RuntimeException("Erreur lors de l'appel au service SOAP: " + e.getMessage(),e);
     }
   }
+
+  public DeleteServerResponse deleteServer(Long id){
+    try{
+    DeleteServerRequest request = objectFactory.createDeleteServerRequest();
+    request.setId(id);
+    WebServiceMessageCallback messageCallback = message -> {
+      if(message instanceof SoapMessage soapMessage){
+        soapMessage.setSoapAction("");
+      }
+    };
+    DeleteServerResponse response = (DeleteServerResponse) webServiceTemplate
+      .marshalSendAndReceive(soapServerUrl,request, messageCallback);
+      return response;
+  
+}catch(Exception e){
+    // throw new 
+    throw new RuntimeException("Erreur lors de l'appel au service SOAP: " + e.getMessage(),e);
+  }
+}
 
 
 

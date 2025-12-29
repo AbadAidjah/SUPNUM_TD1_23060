@@ -3,6 +3,7 @@ package com.td1Rest.demo.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.td1Rest.demo.model.ServerModel;
-import com.td1Rest.demo.service.ServerConsumerService;
+// import com.td1Rest.demo.service.ServerConsumerService;
 import com.td1Rest.demo.service.ServerConsumerServiceImpl;
 import com.td1rest.demo.soap.servers.Server;
 
@@ -58,6 +59,14 @@ public class ServerController {
     public ResponseEntity<?> renameServer(@PathVariable Long id,@org.springframework.web.bind.annotation.RequestBody ServerModel server ){
         server.setId(id);
         return ResponseEntity.ok(serverConsumerServiceImpl.RenameServer(server));
+    }
+    @DeleteMapping("/api/delete/server/{id}")
+    public ResponseEntity<?> deleteServer(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(serverConsumerServiceImpl.deleteServer(id));
+        } catch (Exception e ){
+            return ResponseEntity.status(500).body("Error suppression server: " + e.getMessage());
+        }
     }
   
 

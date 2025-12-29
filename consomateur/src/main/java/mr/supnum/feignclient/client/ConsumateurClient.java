@@ -5,6 +5,8 @@ import mr.supnum.feignclient.dto.Server;
 import mr.supnum.feignclient.dto.StartServerResponse;
 import mr.supnum.feignclient.dto.StopServerResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,5 +34,8 @@ public interface ConsumateurClient {
 
     @PutMapping("/api/rename/server/{id}")
     Server renameServer(@PathVariable("id") Long id, @RequestBody Server server);
+
+    @DeleteMapping("/api/delete/server/{id}")
+    ResponseEntity<?> deleteServer(@PathVariable("id") Long id);
 }
 

@@ -15,7 +15,7 @@ COPY src src
 RUN ./mvnw clean package -DskipTests
 # RUN ./gradlew bootJar --no-daemon
 # COPY --from=build /app/build/libs/*.jar app.jar
-EXPOSE 8080
+EXPOSE 8081
 CMD ["java", "-jar", "target/demo-0.0.1-SNAPSHOT.jar"]
 
 

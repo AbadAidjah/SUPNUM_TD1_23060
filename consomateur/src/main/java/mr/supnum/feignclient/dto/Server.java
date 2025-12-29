@@ -24,4 +24,8 @@ public class Server {
         ACTIVE,
         INACTIVE
     }
+    @Override
+public String toString() {
+    return "Server{id=" + id + ", name='" + name + "', ipAddress='" + ipAddress + "', serverStatus=" + serverStatus + "}";
+}
 }

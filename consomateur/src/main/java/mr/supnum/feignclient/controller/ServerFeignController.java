@@ -6,6 +6,7 @@ import mr.supnum.feignclient.dto.Server;
 import mr.supnum.feignclient.dto.StartServerResponse;
 import mr.supnum.feignclient.dto.StopServerResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,6 +61,10 @@ public class ServerFeignController {
     public ResponseEntity<Server> renameServer(@PathVariable Long id, @RequestBody Server server) {
         Server renamedServer = consumateurClient.renameServer(id, server);
         return ResponseEntity.ok(renamedServer);
+    }
+    @DeleteMapping("{id}/delete")
+    public ResponseEntity<?> deleteServer(@PathVariable Long id){
+        return ResponseEntity.ok(consumateurClient.deleteServer(id));
     }
 }
 
