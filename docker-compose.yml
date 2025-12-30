@@ -51,7 +51,7 @@ services:
       container_name: consomateur-backend-soap-to-rest
       environment:
         SERVER.PORT: 8082
-        CONSUMATEUR.SERVICE.URL : http://localhost:8081
+        CONSUMATEUR.SERVICE.URL : http://middleware:8081
 
       
                
